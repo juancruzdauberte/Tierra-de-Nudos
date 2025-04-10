@@ -1,8 +1,9 @@
 import { UserMetadata } from "@supabase/supabase-js";
 
 export type Product = {
+  id: string;
   title: string;
-  thumbail: string;
+  thumbnail: string;
   stock: string;
   price: number;
   description: string;
@@ -36,3 +37,11 @@ export interface ThemeContextType {
 
   toggleTheme: () => void;
 }
+
+export type Filter = {
+  all: boolean;
+  tapiz: boolean;
+  colgante: boolean;
+};
+
+export type Category = "all" | "tapiz" | "colgante";

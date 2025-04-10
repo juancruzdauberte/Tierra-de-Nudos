@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 import { HiMiniBars3, HiXMark } from "react-icons/hi2";
 import { useAuth } from "../context/AuthContext";
 import { BtnTheme } from "./BtnTheme";
+
 Modal.setAppElement("#root");
+
 export const Navbar = () => {
   const { user, logOut } = useAuth();
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
@@ -14,7 +16,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 1);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -61,13 +63,13 @@ export const Navbar = () => {
               <Link to="/products">Productos</Link>
               <div className="absolute top-full  right-0  p-4 bg-white dark:bg-zinc-900 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition duration-300 z-50">
                 <ul className="flex flex-col gap-3">
-                  <li>
+                  <li className="hover:underline">
                     <Link to="/products">Todos</Link>
                   </li>
-                  <li>
+                  <li className="hover:underline">
                     <Link to="/products/tapiz">Tapices</Link>
                   </li>
-                  <li>
+                  <li className="hover:underline">
                     <Link to="/products/colgante">Colgantes</Link>
                   </li>
                 </ul>
@@ -77,35 +79,35 @@ export const Navbar = () => {
             <Link to="/contact">Contacto</Link>
           </ul>
 
-          <Link to="/account">
-            <div className="relative group">
+          <div className="relative group">
+            <Link to="/account">
               <img
                 src={user?.user_metadata?.avatar_url}
                 alt="Avatar"
                 className="w-10 h-10 rounded-full cursor-pointer"
               />
+            </Link>
 
-              <div className="absolute top-8 mt-2 right-0 w-48 p-4 bg-white dark:bg-zinc-900 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition duration-300 z-50">
-                <ul className="flex flex-col gap-3">
-                  <li>
-                    <p className="">Hola, {user?.user_metadata?.full_name} !</p>
-                  </li>
-                  <li>
-                    <Link to="/account">Mi Cuenta</Link>
-                  </li>
-                  <li>
-                    {" "}
-                    <button
-                      className="text-red-500 hover:underline"
-                      onClick={logOut}
-                    >
-                      Cerrar sesión
-                    </button>
-                  </li>
-                </ul>
-              </div>
+            <div className="absolute top-8 mt-2 right-0 w-48 p-4 bg-white dark:bg-zinc-900 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition duration-300 z-50">
+              <ul className="flex flex-col gap-3">
+                <li>
+                  <p className="">Hola, {user?.user_metadata?.full_name} !</p>
+                </li>
+                <li>
+                  <Link to="/account">Mi Cuenta</Link>
+                </li>
+                <li>
+                  <button
+                    className="text-red-500 hover:underline"
+                    onClick={logOut}
+                  >
+                    Cerrar sesión
+                  </button>
+                </li>
+              </ul>
             </div>
-          </Link>
+          </div>
+
           <BtnTheme />
         </section>
       </nav>
@@ -132,6 +134,11 @@ export const Navbar = () => {
           <li>
             <Link to="/contact" onClick={closeModal}>
               Contacto
+            </Link>
+          </li>
+          <li>
+            <Link to="/account" onClick={closeModal}>
+              Mi Cuenta
             </Link>
           </li>
         </ul>

@@ -26,8 +26,8 @@ function App() {
               <Route element={<ProtectedRoutes />}>
                 <Route element={<ProtectedLayout />}>
                   <Route path="/products" element={<Products />} />
-                  <Route path="/products/:category" element={<Products />} />
-                  <Route path="/products/:id" element={<ProductDetail />} />
+                  <Route path="/products/:category?" element={<Products />} />
+                  <Route path="/product/:id" element={<ProductDetail />} />
                   <Route path="/home" element={<Home />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/account" element={<Account />} />
