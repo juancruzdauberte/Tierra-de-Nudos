@@ -1,7 +1,7 @@
 import { supabase } from "./components/config/db";
 import { type Product } from "./components/types/type";
 
-export async function getProducts(): Promise<Product[] | undefined> {
+export async function getProducts(): Promise<Product[]> {
   try {
     const { data: products, error } = await supabase
       .from("products")
@@ -10,11 +10,11 @@ export async function getProducts(): Promise<Product[] | undefined> {
     return products as Product[];
   } catch (error) {
     console.error(error);
-    return undefined;
+    return [];
   }
 }
 
-export async function getProductById(id: string): Promise<Product | undefined> {
+export async function getProductById(id: string): Promise<Product | null> {
   try {
     const { data: product, error } = await supabase
       .from("products")
@@ -25,6 +25,6 @@ export async function getProductById(id: string): Promise<Product | undefined> {
     return product as Product;
   } catch (error) {
     console.error(error);
-    return undefined;
+    return null;
   }
 }

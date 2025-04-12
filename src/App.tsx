@@ -10,6 +10,7 @@ import { ProtectedLayout } from "./components/config/ProtectedLayout";
 import { Products } from "./components/pages/Products";
 import { Account } from "./components/pages/Account";
 import { ProductDetail } from "./components/pages/ProductDetail";
+import { CartProvider } from "./components/context/CartContext";
 
 function App() {
   return (
@@ -20,20 +21,22 @@ function App() {
       <BrowserRouter>
         <AuthProvider>
           <ThemeProvider>
-            <Routes>
-              <Route path="/" element={<Login />} />
-              <Route path="*" element={<NotFound />} />
-              <Route element={<ProtectedRoutes />}>
-                <Route element={<ProtectedLayout />}>
-                  <Route path="/products" element={<Products />} />
-                  <Route path="/products/:category?" element={<Products />} />
-                  <Route path="/product/:id" element={<ProductDetail />} />
-                  <Route path="/home" element={<Home />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/account" element={<Account />} />
+            <CartProvider>
+              <Routes>
+                <Route path="/" element={<Login />} />
+                <Route path="*" element={<NotFound />} />
+                <Route element={<ProtectedRoutes />}>
+                  <Route element={<ProtectedLayout />}>
+                    <Route path="/products" element={<Products />} />
+                    <Route path="/products/:category?" element={<Products />} />
+                    <Route path="/product/:id" element={<ProductDetail />} />
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/account" element={<Account />} />
+                  </Route>
                 </Route>
-              </Route>
-            </Routes>
+              </Routes>
+            </CartProvider>
           </ThemeProvider>
         </AuthProvider>
       </BrowserRouter>

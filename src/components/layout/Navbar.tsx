@@ -57,7 +57,7 @@ export const Navbar = () => {
           <h1 className="">Tierra de Nudos</h1>
         </Link>
 
-        <section className="flex gap-5">
+        <section className="flex items-center gap-5">
           <ul className="hidden md:flex gap-5 items-center  ">
             <div className="relative group cursor-pointer">
               <Link to="/products">Productos</Link>

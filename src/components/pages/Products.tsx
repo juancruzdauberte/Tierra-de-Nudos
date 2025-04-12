@@ -2,19 +2,22 @@ import { useEffect, useState } from "react";
 import { getProducts } from "../../services";
 import { type Filter, type Product } from "../types/type";
 import { ProductCard } from "../common/ProductCard";
-import { useLoading } from "../hooks/useLoading";
 import { LoadingWidget } from "../common/LoadingWidget";
 import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 export const Products = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const { loading, loadingFalse, loadingTrue } = useLoading();
   const { category } = useParams();
 
   const [filter, setFilter] = useState<Filter>({
     all: true,
     tapiz: false,
     colgante: false,
+  });
+
+  const { data: products, isLoading } = useQuery<Product[]>({
+    queryKey: ["products"],
+    queryFn: getProducts,
   });
 
   const handleOnChangeFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,29 +43,13 @@ export const Products = () => {
     }
   };
 
-  const filteredProducts = products.filter((product) => {
+  const filteredProducts = (products ?? []).filter((product) => {
     if (filter.all) return true;
     return (
       (filter.tapiz && product.category === "tapiz") ||
       (filter.colgante && product.category === "colgante")
     );
   });
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      loadingTrue();
-      try {
-        const res = await getProducts();
-        if (res) setProducts(res);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        loadingFalse();
-      }
-    };
-
-    fetchProducts();
-  }, []);
 
   useEffect(() => {
     if (category === "tapiz") {
@@ -76,7 +63,7 @@ export const Products = () => {
 
   return (
     <section>
-      {loading ? (
+      {isLoading ? (
         <LoadingWidget text="Cargando productos..." />
       ) : (
         <section className="flex items-center flex-col lg:flex-row lg:items-start mt-20 mb-20 gap-20 lg:gap-20">

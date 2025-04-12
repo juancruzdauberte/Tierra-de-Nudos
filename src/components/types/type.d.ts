@@ -4,11 +4,13 @@ export type Product = {
   id: string;
   title: string;
   thumbnail: string;
-  stock: string;
+  stock: number;
   price: number;
   description: string;
   category: string;
 };
+
+export type ProductInCart = Product & { quantity: number };
 
 export type Buyer = {
   name: string;
@@ -25,11 +27,21 @@ export type Orders = {
 };
 
 type User = UserMetadata;
+
 export interface AuthContextType {
   user: User | null;
   loading: boolean;
   signInWithGoogle: () => Promise<void>;
   logOut: () => Promise<void>;
+}
+
+export interface CartContextType {
+  cart: ProductInCart[];
+  addProductToCart: (product: ProductInCart) => void;
+  cartEmpty: () => void;
+  deleteProductToCart: (id: string) => void;
+  totalAmount: () => void;
+  totalItemsInCart: () => void;
 }
 
 export interface ThemeContextType {

@@ -1,54 +1,68 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getProductById } from "../../services";
-import { Product } from "../types/type";
-import { useLoading } from "../hooks/useLoading";
 import { LoadingWidget } from "../common/LoadingWidget";
+import { useCart } from "../context/CartContext";
+import { useQuery } from "@tanstack/react-query";
+import { type Product } from "../types/type";
+import { getProductById } from "../../services";
+import { Counter } from "../common/Counter";
+import { useState } from "react";
 
 export const ProductDetail = () => {
   const { id } = useParams();
-  const { loading, loadingFalse, loadingTrue } = useLoading();
-  const [product, setProduct] = useState<Product | null>(null);
+  const [counter, setCounter] = useState<number>(1);
 
-  useEffect(() => {
-    const getProduct = async () => {
-      loadingTrue();
-      try {
-        if (id) {
-          const res = await getProductById(id);
-          setProduct(res || null);
-        }
-      } catch (error) {
-        console.error(error);
-      } finally {
-        loadingFalse();
-      }
-    };
-    getProduct();
-  }, []);
+  const { addProductToCart } = useCart();
+
+  const { data: product, isLoading } = useQuery<Product | null>({
+    queryKey: ["product", id],
+    queryFn: () => (id ? getProductById(id) : Promise.resolve(null)),
+    enabled: !!id,
+  });
+
+  const onAdd = () => {
+    if (!product) return;
+    const productToCart = { ...product, quantity: counter };
+    addProductToCart(productToCart);
+    console.log(productToCart);
+    setCounter(1);
+  };
 
   return (
-    <section className="max-w-2xl mx-auto  bg-white dark:bg-zinc-800 shadow-md">
-      {loading ? (
+    <section>
+      {isLoading ? (
         <section className="min-h-screen flex items-center">
           <LoadingWidget text="Cargando producto..." />
         </section>
+      ) : !product ? (
+        <p className="p-4 text-center text-red-500">Producto no encontrado.</p>
       ) : (
-        <section className="flex items-center">
+        <section className="max-w-2xl flex bg-white dark:bg-zinc-800 shadow-mdf">
           <div className="w-full h-64 rounded-sm">
             <img
-              src={product?.thumbnail}
-              alt={product?.title}
+              src={product.thumbnail}
+              alt={product.title}
               className="w-full h-full object-cover"
             />
           </div>
-          <div className="flex flex-col">
-            <h2 className="font-bold">{product?.title}</h2>
-            <p className="">{product?.description}</p>
-            <span className="text-xl font-semibold text-green-600">
-              ${product?.price}
+          <div className="flex flex-col p-4">
+            <h2 className="font-bold text-2xl mb-2">{product.title}</h2>
+            <p className="mb-4">{product.description}</p>
+            <span className="text-xl font-semibold text-green-600 mb-4">
+              ${product.price}
             </span>
-            <button className="border">Añadir al carrito</button>
+
+            <Counter
+              quantity={counter}
+              stock={product.stock}
+              onChangeQuantity={setCounter}
+            />
+
+            <button
+              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+              onClick={onAdd}
+            >
+              Añadir al carrito
+            </button>
           </div>
         </section>
       )}
