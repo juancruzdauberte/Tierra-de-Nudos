@@ -40,8 +40,8 @@ export interface CartContextType {
   addProductToCart: (product: ProductInCart) => void;
   cartEmpty: () => void;
   deleteProductToCart: (id: string) => void;
-  totalAmount: () => void;
-  totalItemsInCart: () => void;
+  totalAmount: () => number;
+  totalItemsInCart: () => number;
 }
 
 export interface ThemeContextType {

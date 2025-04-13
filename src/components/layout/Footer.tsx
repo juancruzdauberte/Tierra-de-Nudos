@@ -1,7 +1,7 @@
-import { AiFillTikTok } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { MdOutlineEmail } from "react-icons/md";
-import { FaInstagram } from "react-icons/fa";
+import { TikTokWiget } from "../common/TikTokWiget";
+import { InstagramWidget } from "../common/InstagramWidget";
+import { EmailWidget } from "../common/EmailWidget";
 
 export const Footer = () => {
   return (
@@ -18,31 +18,9 @@ export const Footer = () => {
       </section>
 
       <section className="flex gap-2">
-        <a
-          href="https://www.tiktok.com/@tierradenudos"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-center border border-black rounded-full p-1 md:p-2 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black dark:border-white transition"
-        >
-          <AiFillTikTok />
-        </a>
-
-        <a
-          href="https://www.instagram.com/tierradenudos_/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-center border border-black rounded-full p-1 md:p-2 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black dark:border-white transition"
-        >
-          <FaInstagram />
-        </a>
-        <a
-          href="mailto:tierradenudos@gmail.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-center border border-black rounded-full p-1 md:p-2 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black dark:border-white transition"
-        >
-          <MdOutlineEmail />
-        </a>
+        <TikTokWiget />
+        <InstagramWidget />
+        <EmailWidget />
       </section>
     </footer>
   );

@@ -6,7 +6,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<ProductInCart[]>([]);
 
-  const addProductToCart = (product: ProductInCart) => {
+  const addProductToCart = (product: ProductInCart): void => {
     const productInCart = cart.some((p) => p.id === product.id);
 
     if (productInCart) {
@@ -26,23 +26,23 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const cartEmpty = () => {
+  const cartEmpty = (): void => {
     setCart([]);
   };
 
-  const deleteProductToCart = (id: string) => {
+  const deleteProductToCart = (id: string): void => {
     const newCart = cart.filter((product) => product.id !== id);
     setCart(newCart);
   };
 
-  const totalAmount = () => {
+  const totalAmount = (): number => {
     const total = cart.reduce((acc, product) => {
       return acc + product.price * (product.quantity || 1);
     }, 0);
     return total;
   };
 
-  const totalItemsInCart = () => {
+  const totalItemsInCart = (): number => {
     const total = cart.reduce((acc, product) => {
       return acc + (product.quantity || 1);
     }, 0);

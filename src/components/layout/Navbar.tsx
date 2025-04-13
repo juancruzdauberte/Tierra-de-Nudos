@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { HiMiniBars3, HiXMark } from "react-icons/hi2";
 import { useAuth } from "../context/AuthContext";
 import { BtnTheme } from "./BtnTheme";
+import { CartWidget } from "../common/CartWidget";
 
 Modal.setAppElement("#root");
 
@@ -37,7 +38,7 @@ export const Navbar = () => {
 
   return (
     <header
-      className={`fixed top-0 w-full z-40 p-2 transition-colors duration-300 ${
+      className={`fixed top-0 w-full z-40 p-4 transition-colors duration-300 ${
         scrolled
           ? "bg-white/0 dark:bg-black/0 backdrop-blur-md"
           : "bg-customFooterNav dark:bg-customDark"
@@ -54,7 +55,12 @@ export const Navbar = () => {
           </button>
         )}
         <Link to="/home">
-          <h1 className="">Tierra de Nudos</h1>
+          <h1 className="hidden sm:block">Tierra de Nudos</h1>
+          <img
+            src="https://res.cloudinary.com/dttpgbmdx/image/upload/v1739045695/logo_j6mmee.png"
+            alt=""
+            className="h-12 w-12 sm:hidden"
+          />
         </Link>
 
         <section className="flex items-center gap-5">
@@ -107,8 +113,12 @@ export const Navbar = () => {
               </ul>
             </div>
           </div>
-
-          <BtnTheme />
+          <div>
+            <CartWidget />
+          </div>
+          <div className="hidden md:block">
+            <BtnTheme />
+          </div>
         </section>
       </nav>
       <Modal
@@ -140,6 +150,9 @@ export const Navbar = () => {
             <Link to="/account" onClick={closeModal}>
               Mi Cuenta
             </Link>
+          </li>
+          <li>
+            <BtnTheme />
           </li>
         </ul>
       </Modal>
