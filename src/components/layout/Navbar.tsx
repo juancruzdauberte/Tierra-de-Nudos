@@ -55,15 +55,17 @@ export const Navbar = () => {
           </button>
         )}
         <Link to="/home">
-          <h1 className="hidden md:block">Tierra de Nudos</h1>
-          <img
-            src="https://res.cloudinary.com/dttpgbmdx/image/upload/v1739045695/logo_j6mmee.png"
-            alt=""
-            className="h-12 w-12 md:hidden"
-          />
+          <div className="flex items-center gap-3">
+            <img
+              src="https://res.cloudinary.com/dttpgbmdx/image/upload/v1739045695/logo_j6mmee.png"
+              alt=""
+              className="h-9 w-9 md:h-12 md:w-12 rounded-full"
+            />
+            <h1 className="hidden md:block">Tierra de Nudos</h1>
+          </div>
         </Link>
 
-        <section className="flex items-center gap-5">
+        <section className="flex items-center gap-2.5 md:gap-4">
           <ul className="hidden md:flex gap-5 items-center  ">
             <div className="relative group cursor-pointer">
               <Link to="/products">Productos</Link>
@@ -90,7 +92,7 @@ export const Navbar = () => {
               <img
                 src={user?.user_metadata?.avatar_url}
                 alt="Avatar"
-                className="w-10 h-10 rounded-full cursor-pointer"
+                className="h-9 w-9 md:h-12 md:w-12 rounded-full cursor-pointer"
               />
             </Link>
 

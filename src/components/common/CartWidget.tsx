@@ -6,8 +6,8 @@ export const CartWidget = () => {
 
   return (
     <div>
-      <span className="absolute top-1 md:top-0 mx-5">{totalItemsInCart()}</span>
-      <PiShoppingCartThin size={32} />
+      <span className="absolute top-0 mx-5">{totalItemsInCart()}</span>
+      <PiShoppingCartThin size={31} />
     </div>
   );
 };

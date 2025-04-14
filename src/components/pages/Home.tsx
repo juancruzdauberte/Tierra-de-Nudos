@@ -1,3 +1,9 @@
+import { Carousel } from "../layout/Carousel";
+
 export const Home = () => {
-  return <div></div>;
+  return (
+    <section className="w-full">
+      <Carousel />
+    </section>
+  );
 };
