@@ -38,10 +38,10 @@ export const Navbar = () => {
 
   return (
     <header
-      className={`fixed top-0 w-full z-40 p-4 transition-colors duration-300 ${
+      className={` top-0 fixed w-full z-40 p-3 transition-colors duration-300 ${
         scrolled
-          ? "bg-white/0 dark:bg-black/0 backdrop-blur-md"
-          : "bg-customFooterNav dark:bg-customDark"
+          ? "bg-customFooterNav dark:bg-customDark"
+          : "bg-white/0 dark:bg-black/0 backdrop-blur-md"
       }`}
     >
       <nav className="flex items-center justify-between">
@@ -55,11 +55,11 @@ export const Navbar = () => {
           </button>
         )}
         <Link to="/home">
-          <h1 className="hidden sm:block">Tierra de Nudos</h1>
+          <h1 className="hidden md:block">Tierra de Nudos</h1>
           <img
             src="https://res.cloudinary.com/dttpgbmdx/image/upload/v1739045695/logo_j6mmee.png"
             alt=""
-            className="h-12 w-12 sm:hidden"
+            className="h-12 w-12 md:hidden"
           />
         </Link>
 
@@ -113,9 +113,9 @@ export const Navbar = () => {
               </ul>
             </div>
           </div>
-          <div>
+          <Link to="/cart">
             <CartWidget />
-          </div>
+          </Link>
           <div className="hidden md:block">
             <BtnTheme />
           </div>
@@ -125,7 +125,7 @@ export const Navbar = () => {
         isOpen={menuOpen}
         onRequestClose={closeModal}
         contentLabel="Menú móvil"
-        className="z-60 text-black dark:text-white bg-white dark:bg-zinc-900 h-full absolute flex left-0 top-0 p-6 w-52 max-w-md mx-auto outline-none md:hidden"
+        className="z-60 text-black dark:text-white bg-white dark:bg-zinc-800 h-full absolute flex left-0 top-0 p-6 w-52 max-w-md mx-auto outline-none md:hidden"
         overlayClassName="z-50 inset-0 fixed inset-0 bg-black bg-opacity-50 flex md:hidden"
       >
         <button

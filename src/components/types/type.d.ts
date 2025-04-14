@@ -42,6 +42,7 @@ export interface CartContextType {
   deleteProductToCart: (id: string) => void;
   totalAmount: () => number;
   totalItemsInCart: () => number;
+  updateQuantity: (id: string, newQty: number) => void;
 }
 
 export interface ThemeContextType {

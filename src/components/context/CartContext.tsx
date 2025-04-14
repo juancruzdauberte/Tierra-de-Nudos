@@ -48,6 +48,15 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }, 0);
     return total;
   };
+
+  const updateQuantity = (id: string, newQty: number) => {
+    setCart((prev) =>
+      prev.map((product) =>
+        product.id === id ? { ...product, quantity: newQty } : product
+      )
+    );
+  };
+
   const value = {
     cart,
     cartEmpty,
@@ -55,6 +64,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     deleteProductToCart,
     totalAmount,
     totalItemsInCart,
+    updateQuantity,
   };
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };

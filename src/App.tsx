@@ -11,6 +11,7 @@ import { Products } from "./components/pages/Products";
 import { Account } from "./components/pages/Account";
 import { ProductDetail } from "./components/pages/ProductDetail";
 import { CartProvider } from "./components/context/CartContext";
+import { Cart } from "./components/pages/Cart";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
                     <Route path="/home" element={<Home />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/account" element={<Account />} />
+                    <Route path="/cart" element={<Cart />} />
                   </Route>
                 </Route>
               </Routes>

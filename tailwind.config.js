@@ -7,6 +7,7 @@ export default {
         customWhite: "#f1f0fd",
         customDark: "#242424",
         customFooterNav: "rgb(242, 231, 231)",
+        customBrown: "#8f655f",
       },
     },
   },
