@@ -7,7 +7,7 @@ import {
 } from "react";
 import { type User, type AuthContextType } from "../types/type";
 import { supabase } from "../config/db";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useLoading } from "../hooks/useLoading";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const { loading, loadingFalse, loadingTrue } = useLoading();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const signInWithGoogle = async (): Promise<void> => {
     try {
@@ -50,7 +51,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const { data: listener } = supabase.auth.onAuthStateChange(
       (_event, session) => {
         setUser(session?.user ?? null);
-        if (_event === "SIGNED_IN") navigate("/home");
+        if (_event === "SIGNED_IN" && location.pathname === "/")
+          navigate("/home");
       }
     );
 
