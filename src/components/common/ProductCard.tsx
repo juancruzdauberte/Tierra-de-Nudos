@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import { type Product } from "../types/type";
 
-export const ProductCard = ({ product }: { product: Product }) => {
+type Props = {
+  product: Product;
+};
+export const ProductCard = ({ product }: Props) => {
   return (
     <section className="w-60 bg-white dark:bg-zinc-800 rounded-md shadow-md overflow-hidden transition transform hover:scale-[1.02] hover:shadow-lg">
       <div className="h-48 w-full overflow-hidden">

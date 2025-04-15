@@ -13,18 +13,22 @@ export type Product = {
 export type ProductInCart = Product & { quantity: number };
 
 export type Buyer = {
-  name: string;
+  fullname: string;
   email: string;
-  phone_number: string;
+  address: string;
+  province: string;
+  cellphone: string;
+  zipcode: string;
 };
-
-export type Cart = Product[];
 
 export type Orders = {
   buyer: Buyer;
   items: Product[];
   total: number;
+  user_id: string;
 };
+
+export type Cart = Product[];
 
 type User = UserMetadata;
 

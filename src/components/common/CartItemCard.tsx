@@ -5,33 +5,35 @@ import { CiCircleRemove } from "react-icons/ci";
 
 type Props = {
   item: ProductInCart;
-  onChangeQuantity: (id: string, quantity: number) => void;
 };
-export const CartItemCard = ({ item, onChangeQuantity }: Props) => {
-  const { deleteProductToCart } = useCart();
+export const CartItemCard = ({ item }: Props) => {
+  const { deleteProductToCart, updateQuantity } = useCart();
   return (
-    <section className="flex items-center gap-5">
-      <div className="w-20 h-20">
-        <img className="h-full w-auto" src={item.thumbnail} alt={item.title} />
+    <section className="w-[280px] md:w-[400px] flex items-center justify-between gap-2 p-2 border  border-black">
+      <div className="h-16 w-20 md:h-24 md:w-20">
+        <img className="w-full h-full" src={item.thumbnail} alt={item.title} />
       </div>
 
       <div>
         <h3>{item.title}</h3>
       </div>
 
-      <div className="flex gap-3">
+      <div className="flex gap-3 md:gap-5 items-center">
         <Counter
           quantity={item.quantity}
           stock={item.stock}
-          onChangeQuantity={(newQuantity) =>
-            onChangeQuantity(item.id, newQuantity)
-          }
+          onChangeQuantity={(newQuantity) => {
+            updateQuantity(item.id, newQuantity);
+          }}
         />
         <span>${item.price}</span>
       </div>
 
-      <button onClick={() => deleteProductToCart(item.id)}>
-        <CiCircleRemove />
+      <button
+        onClick={() => deleteProductToCart(item.id)}
+        className=" hover:text-red-500 transition-colors"
+      >
+        <CiCircleRemove size={23} />
       </button>
     </section>
   );

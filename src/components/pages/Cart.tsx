@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { CartItemCard } from "../common/CartItemCard";
 import { useCart } from "../context/CartContext";
+import { toast } from "sonner";
 
 export const Cart = () => {
-  const { cart, updateQuantity, totalAmount, cartEmpty } = useCart();
+  const { cart, totalAmount, cartEmpty } = useCart();
   return (
     <section>
       {cart.length === 0 ? (
@@ -17,32 +18,33 @@ export const Cart = () => {
           </Link>
         </section>
       ) : (
-        <section className="flex flex-col items-center gap-20">
+        <section className="flex flex-col items-center lg:flex-row lg:items-start lg:justify-start gap-20 lg:gap-52">
           <section className="flex flex-col gap-10">
             {cart.map((item) => {
-              return (
-                <CartItemCard
-                  key={item.id}
-                  item={item}
-                  onChangeQuantity={(newQty) =>
-                    updateQuantity(item.id, Number(newQty))
-                  }
-                />
-              );
+              return <CartItemCard key={item.id} item={item} />;
             })}
           </section>
 
-          <section className="flex flex-col items-center gap-3">
+          <section className="flex flex-col items-center gap-5 p-5 border border-black">
             <div>
               <p className="flex gap-2">
                 Total a pagar:<span>${totalAmount()}</span>
               </p>
             </div>
             <div className="flex gap-3">
-              <Link to="/checkout" className="border rounded-md px-3">
+              <Link
+                to="/checkout"
+                className="rounded-md px-3 bg-green-400 text-white font-bold"
+              >
                 Finalizar compra
               </Link>
-              <button onClick={cartEmpty} className="border rounded-md px-3">
+              <button
+                onClick={() => {
+                  cartEmpty();
+                  toast.success("Carrito eliminado");
+                }}
+                className="bg-slate-500 font-bold text-white rounded-md px-3"
+              >
                 Vaciar carrito
               </button>
             </div>

@@ -66,13 +66,13 @@ export const Products = () => {
       {isLoading ? (
         <LoadingWidget text="Cargando productos..." />
       ) : (
-        <section className="flex items-center flex-col lg:flex-row lg:items-start mt-20 mb-20 gap-20 lg:gap-20">
-          <aside className="w-64  gap-4 p-4 rounded-lg bg-slate-100 shadow-md h-fit">
+        <section className="flex items-center flex-col lg:flex-row lg:items-start mt-20 mb-20 gap-20 ">
+          <aside className="flex flex-col gap-3 p-3 rounded-lg bg-slate-100 shadow-md h-fit">
             <span className="text-lg font-semibold text-slate-700">
               Filtrar por categoría:
             </span>
 
-            <div className="flex flex-col gap-4">
+            <div className="w-44 md:w-56 flex flex-col gap-4">
               <label className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm hover:bg-slate-50 transition-all cursor-pointer">
                 <input
                   type="checkbox"

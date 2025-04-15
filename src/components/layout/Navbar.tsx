@@ -5,6 +5,7 @@ import { HiMiniBars3, HiXMark } from "react-icons/hi2";
 import { useAuth } from "../context/AuthContext";
 import { BtnTheme } from "./BtnTheme";
 import { CartWidget } from "../common/CartWidget";
+import { CiLogout } from "react-icons/ci";
 
 Modal.setAppElement("#root");
 
@@ -59,7 +60,7 @@ export const Navbar = () => {
             <img
               src="https://res.cloudinary.com/dttpgbmdx/image/upload/v1739045695/logo_j6mmee.png"
               alt=""
-              className="h-9 w-9 md:h-12 md:w-12 rounded-full"
+              className="h-10 w-10 md:h-12 md:w-12 rounded-full"
             />
             <h1 className="hidden md:block">Tierra de Nudos</h1>
           </div>
@@ -92,7 +93,7 @@ export const Navbar = () => {
               <img
                 src={user?.user_metadata?.avatar_url}
                 alt="Avatar"
-                className="h-9 w-9 md:h-12 md:w-12 rounded-full cursor-pointer"
+                className="h-8 w-8 md:h-12 md:w-12 rounded-full cursor-pointer"
               />
             </Link>
 
@@ -106,10 +107,10 @@ export const Navbar = () => {
                 </li>
                 <li>
                   <button
-                    className="text-red-500 hover:underline"
+                    className="text-red-500  flex items-center gap-1"
                     onClick={logOut}
                   >
-                    Cerrar sesión
+                    <CiLogout size={24} /> Cerrar sesión
                   </button>
                 </li>
               </ul>

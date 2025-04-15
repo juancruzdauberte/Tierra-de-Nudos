@@ -1,13 +1,12 @@
 import { motion } from "framer-motion";
 import { CiDark, CiLight } from "react-icons/ci";
 
-export const AnimationBtnTheme = ({
-  isOn,
-  toggle,
-}: {
+type Props = {
   isOn: boolean;
   toggle: () => void;
-}) => {
+};
+
+export const AnimationBtnTheme = ({ isOn, toggle }: Props) => {
   return (
     <button
       onClick={toggle}
@@ -30,9 +29,9 @@ export const AnimationBtnTheme = ({
         }}
       >
         {isOn ? (
-          <CiLight className="text-yellow-400" size={18} />
+          <CiLight className="text-yellow-800" size={18} />
         ) : (
-          <CiDark className="text-gray-700" size={18} />
+          <CiDark className="text-gray-800" size={18} />
         )}
       </motion.div>
 

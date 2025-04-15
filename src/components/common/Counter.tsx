@@ -1,25 +1,26 @@
 import { IoIosRemove, IoIosAdd } from "react-icons/io";
+import { useCart } from "../context/CartContext";
 
-interface CounterProps {
+interface Props {
   quantity: number;
   stock: number;
-  onChangeQuantity: (quantity: number) => void;
+  onChangeQuantity: (
+    quantity: number,
+    updateQuantity: (id: string, quantity: number) => void
+  ) => void;
 }
 
-export const Counter = ({
-  quantity,
-  stock,
-  onChangeQuantity,
-}: CounterProps) => {
+export const Counter = ({ quantity, stock, onChangeQuantity }: Props) => {
+  const { updateQuantity } = useCart();
   const suma = () => {
     if (quantity < stock) {
-      onChangeQuantity(quantity + 1);
+      onChangeQuantity(quantity + 1, updateQuantity);
     }
   };
 
   const resta = () => {
     if (quantity > 1) {
-      onChangeQuantity(quantity - 1);
+      onChangeQuantity(quantity - 1, updateQuantity);
     }
   };
 

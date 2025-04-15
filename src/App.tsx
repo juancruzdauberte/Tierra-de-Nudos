@@ -12,6 +12,8 @@ import { Account } from "./components/pages/Account";
 import { ProductDetail } from "./components/pages/ProductDetail";
 import { CartProvider } from "./components/context/CartContext";
 import { Cart } from "./components/pages/Cart";
+import { Toaster } from "sonner";
+import { Checkout } from "./components/pages/Checkout";
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
     omWhite dark:bg-customDark transition-colors duration-300"
     >
       <BrowserRouter>
+        <Toaster richColors duration={2500} />
         <AuthProvider>
           <ThemeProvider>
             <CartProvider>
@@ -35,6 +38,7 @@ function App() {
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/account" element={<Account />} />
                     <Route path="/cart" element={<Cart />} />
+                    <Route path="/checkout" element={<Checkout />} />
                   </Route>
                 </Route>
               </Routes>

@@ -6,7 +6,7 @@ export const ProtectedLayout = () => {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen flex flex-col w-full justify-center items-center">
+      <main className="min-h-screen flex flex-col w-full justify-center items-center pt-[100px]">
         <Outlet />
       </main>
       <Footer />

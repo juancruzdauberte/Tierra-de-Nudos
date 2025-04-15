@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { type ProductInCart, CartContextType } from "../types/type";
+import { toast } from "sonner";
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
@@ -24,6 +25,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     } else {
       setCart([...cart, { ...product, quantity: product.quantity || 1 }]);
     }
+    toast.success("Producto añadido al carrito");
   };
 
   const cartEmpty = (): void => {
@@ -33,6 +35,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const deleteProductToCart = (id: string): void => {
     const newCart = cart.filter((product) => product.id !== id);
     setCart(newCart);
+    toast.success("Producto eliminado del carrito");
   };
 
   const totalAmount = (): number => {
