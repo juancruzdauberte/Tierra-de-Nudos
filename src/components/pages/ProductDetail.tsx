@@ -2,10 +2,9 @@ import { useParams } from "react-router-dom";
 import { LoadingWidget } from "../common/LoadingWidget";
 import { useCart } from "../context/CartContext";
 import { useQuery } from "@tanstack/react-query";
-import { type Product } from "../types/type";
-import { getProductById } from "../../services";
 import { Counter } from "../common/Counter";
 import { useState } from "react";
+import { getProductByIdQuery } from "../queryOptions/queryOptions";
 
 export const ProductDetail = () => {
   const { id } = useParams();
@@ -13,11 +12,9 @@ export const ProductDetail = () => {
 
   const { addProductToCart } = useCart();
 
-  const { data: product, isLoading } = useQuery<Product | null>({
-    queryKey: ["product", id],
-    queryFn: () => (id ? getProductById(id) : Promise.resolve(null)),
-    enabled: !!id,
-  });
+  const { data: product, isLoading } = useQuery(
+    getProductByIdQuery(id as string)
+  );
 
   const onAdd = () => {
     if (!product) return;

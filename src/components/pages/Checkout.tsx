@@ -14,7 +14,7 @@ export const Checkout = () => {
 
   const form = useForm({
     defaultValues: {
-      fullname: "",
+      name: "",
       email: "",
       address: "",
       province: "",
@@ -24,7 +24,7 @@ export const Checkout = () => {
 
     onSubmit: async ({ value }) => {
       const buyer: Buyer = {
-        fullname: value.fullname,
+        name: value.name,
         email: value.email,
         address: value.address,
         province: value.province,
@@ -48,7 +48,7 @@ export const Checkout = () => {
     },
   });
   return (
-    <section className="min-h-screen px-4 py-6 bg-gray-50 w-full flex justify-center">
+    <section className="min-h-screen px-4 py-6 w-full">
       <div className="max-w-screen-xl w-full">
         {submittedOrder ? (
           <section className="text-center py-20">
@@ -57,15 +57,21 @@ export const Checkout = () => {
             </h5>
           </section>
         ) : (
-          <section className="flex flex-col lg:flex-row items-center lg:items-start lg:justify-center gap-y-10 lg:gap-x-10">
-            <section className="w-full sm:w-4/5 lg:w-1/2 space-y-6 flex flex-col items-center ">
-              {cart.map((item) => (
-                <CartItemCard key={item.id} item={item} />
-              ))}
+          <section className="flex flex-col  lg:flex-row items-center lg:items-start lg:justify-between gap-10 lg:gap-0 ">
+            <section className="flex flex-col items-start bg-white shadow-md p-4 rounded-sm gap-3 lg:w-2/6">
+              <div>
+                <h4 className="font-bold">Tu carrito</h4>
+              </div>
+
+              <div className="flex flex-col gap-5 w-full">
+                {cart.map((item) => (
+                  <CartItemCard key={item.id} item={item} isCheckout />
+                ))}
+              </div>
             </section>
 
-            <section className="bg-white p-6 rounded-xl w-3/6 shadow-md">
-              <h2 className="text-xl font-semibold mb-4">Datos de envío</h2>
+            <section className="bg-white p-6 rounded-sm shadow-md w-[300px] md:w-[400px] lg:w-[480px]">
+              <h2 className="font-bold mb-4">Datos de envío</h2>
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -74,7 +80,7 @@ export const Checkout = () => {
                 className="flex flex-col gap-5"
               >
                 <form.Field
-                  name="fullname"
+                  name="name"
                   validators={{
                     onChange: ({ value }) =>
                       value.trim() === "" ? "Nombre requerido" : undefined,
@@ -88,6 +94,7 @@ export const Checkout = () => {
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
                         className="border border-gray-300 rounded-md p-2"
+                        placeholder="Nombre y apellido"
                       />
                       {field.state.meta.errors.length > 0 && (
                         <span className="text-red-500 text-sm">
@@ -113,6 +120,7 @@ export const Checkout = () => {
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
                         className="border border-gray-300 rounded-md p-2"
+                        placeholder="Email@email.com"
                       />
                       {field.state.meta.errors.length > 0 && (
                         <span className="text-red-500 text-sm">
@@ -138,6 +146,7 @@ export const Checkout = () => {
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
                         className="border border-gray-300 rounded-md p-2"
+                        placeholder="Dirección 123"
                       />
                       {field.state.meta.errors.length > 0 && (
                         <span className="text-red-500 text-sm">
@@ -203,7 +212,6 @@ export const Checkout = () => {
                   )}
                 </form.Field>
 
-                {/* Código Postal */}
                 <form.Field
                   name="zipcode"
                   validators={{
@@ -221,6 +229,8 @@ export const Checkout = () => {
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
                         className="border border-gray-300 rounded-md p-2"
+                        placeholder="4 digitos"
+                        maxLength={4}
                       />
                       {field.state.meta.errors.length > 0 && (
                         <span className="text-red-500 text-sm">
@@ -231,7 +241,6 @@ export const Checkout = () => {
                   )}
                 </form.Field>
 
-                {/* Teléfono */}
                 <form.Field
                   name="cellphone"
                   validators={{
@@ -257,7 +266,6 @@ export const Checkout = () => {
                   )}
                 </form.Field>
 
-                {/* Botón de envío */}
                 <button
                   type="submit"
                   className="mt-4 bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition"

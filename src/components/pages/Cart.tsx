@@ -18,14 +18,14 @@ export const Cart = () => {
           </Link>
         </section>
       ) : (
-        <section className="flex flex-col items-center lg:flex-row lg:items-start lg:justify-start gap-20 lg:gap-52">
+        <section className="flex flex-col md:flex-row gap-20 lg:gap-44 justify-center ">
           <section className="flex flex-col gap-10">
             {cart.map((item) => {
               return <CartItemCard key={item.id} item={item} />;
             })}
           </section>
 
-          <section className="flex flex-col items-center gap-5 p-5 border border-black">
+          <section className=" md:h-[130px] flex flex-col items-center gap-5 p-5 border border-black">
             <div>
               <p className="flex gap-2">
                 Total a pagar:<span>${totalAmount()}</span>

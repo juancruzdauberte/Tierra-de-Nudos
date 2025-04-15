@@ -13,7 +13,7 @@ export type Product = {
 export type ProductInCart = Product & { quantity: number };
 
 export type Buyer = {
-  fullname: string;
+  name: string;
   email: string;
   address: string;
   province: string;

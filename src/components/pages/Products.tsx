@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { getProducts } from "../../services";
-import { type Filter, type Product } from "../types/type";
+import { type Filter } from "../types/type";
 import { ProductCard } from "../common/ProductCard";
 import { LoadingWidget } from "../common/LoadingWidget";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { getProductsQuery } from "../queryOptions/queryOptions";
 
 export const Products = () => {
   const { category } = useParams();
@@ -15,10 +15,7 @@ export const Products = () => {
     colgante: false,
   });
 
-  const { data: products, isLoading } = useQuery<Product[]>({
-    queryKey: ["products"],
-    queryFn: getProducts,
-  });
+  const { data: products, isLoading } = useQuery(getProductsQuery());
 
   const handleOnChangeFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;

@@ -93,7 +93,7 @@ export const Navbar = () => {
               <img
                 src={user?.user_metadata?.avatar_url}
                 alt="Avatar"
-                className="h-8 w-8 md:h-12 md:w-12 rounded-full cursor-pointer"
+                className="h-8 w-8 md:h-10 md:w-10 rounded-full cursor-pointer"
               />
             </Link>
 
@@ -133,12 +133,12 @@ export const Navbar = () => {
       >
         <button
           onClick={closeModal}
-          className="absolute top-2 right-2 md:hidden text-2xl cursor-pointer"
+          className="absolute top-3 right-4 md:hidden text-2xl cursor-pointer"
           aria-label="Abrir menú"
         >
           <HiXMark />
         </button>
-        <ul className="flex flex-col items-start gap-4 text-center text-xl">
+        <ul className="flex flex-col items-start gap-4 text-center mt-8">
           <li>
             <Link to="/products" onClick={closeModal}>
               Productos

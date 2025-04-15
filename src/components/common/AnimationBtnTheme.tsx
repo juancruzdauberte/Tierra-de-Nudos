@@ -10,7 +10,7 @@ export const AnimationBtnTheme = ({ isOn, toggle }: Props) => {
   return (
     <button
       onClick={toggle}
-      className={`relative w-14 h-8 rounded-full p-1 flex items-center transition-colors duration-300 ${
+      className={`relative w-14 h-7 rounded-full p-1 flex items-center transition-colors duration-300 ${
         isOn
           ? "bg-gray-200 border border-gray-300"
           : " bg-gray-600 border border-gray-500"

@@ -25,13 +25,13 @@ export const Counter = ({ quantity, stock, onChangeQuantity }: Props) => {
   };
 
   return (
-    <section className="flex gap-2 items-center">
+    <section className="flex gap-1 items-center">
       <button onClick={resta}>
-        <IoIosRemove size={24} />
+        <IoIosRemove size={20} />
       </button>
-      <span className="text-lg">{quantity}</span>
+      <span>{quantity}</span>
       <button onClick={suma}>
-        <IoIosAdd size={24} />
+        <IoIosAdd size={20} />
       </button>
     </section>
   );
