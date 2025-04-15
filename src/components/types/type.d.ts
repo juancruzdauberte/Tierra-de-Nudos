@@ -34,7 +34,6 @@ type User = UserMetadata;
 
 export interface AuthContextType {
   user: User | null;
-  loading: boolean;
   signInWithGoogle: () => Promise<void>;
   logOut: () => Promise<void>;
 }

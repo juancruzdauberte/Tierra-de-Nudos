@@ -8,13 +8,11 @@ import {
 import { type User, type AuthContextType } from "../types/type";
 import { supabase } from "../config/db";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useLoading } from "../hooks/useLoading";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
-  const { loading, loadingFalse, loadingTrue } = useLoading();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -30,22 +28,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logOut = async () => {
-    loadingTrue();
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw new Error("Error al cerrar sesion");
       setUser(null);
     } catch (error) {
       console.error(error);
-    } finally {
-      loadingFalse();
     }
   };
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
-      loadingFalse();
     });
 
     const { data: listener } = supabase.auth.onAuthStateChange(
@@ -61,7 +55,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
   }, [navigate]);
 
-  const value = { logOut, loading, signInWithGoogle, user };
+  const value = { logOut, signInWithGoogle, user };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 

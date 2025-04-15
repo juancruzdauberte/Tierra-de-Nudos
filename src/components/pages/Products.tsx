@@ -63,13 +63,13 @@ export const Products = () => {
       {isLoading ? (
         <LoadingWidget text="Cargando productos..." />
       ) : (
-        <section className="flex items-center flex-col lg:flex-row lg:items-start mt-20 mb-20 gap-20 ">
+        <section className="flex items-center flex-col lg:flex-row lg:items-start mt-20 mb-20 gap-24">
           <aside className="flex flex-col gap-3 p-3 rounded-lg bg-slate-100 shadow-md h-fit">
             <span className="text-lg font-semibold text-slate-700">
               Filtrar por categoría:
             </span>
 
-            <div className="w-44 md:w-56 flex flex-col gap-4">
+            <div className="w-44 flex flex-col gap-4">
               <label className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm hover:bg-slate-50 transition-all cursor-pointer">
                 <input
                   type="checkbox"
@@ -105,8 +105,7 @@ export const Products = () => {
             </div>
           </aside>
 
-          {/* Grilla de productos */}
-          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 w-full">
+          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 w-full">
             {filteredProducts.map((product) => (
               <div key={product.id}>
                 <ProductCard product={product} />

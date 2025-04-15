@@ -25,7 +25,7 @@ export const Cart = () => {
             })}
           </section>
 
-          <section className=" md:h-[130px] flex flex-col items-center gap-5 p-5 border border-black">
+          <section className=" md:h-[130px] flex flex-col items-center gap-5 p-5 border border-black dark:border-white">
             <div>
               <p className="flex gap-2">
                 Total a pagar:<span>${totalAmount()}</span>

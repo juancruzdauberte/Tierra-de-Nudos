@@ -58,19 +58,26 @@ export const Checkout = () => {
           </section>
         ) : (
           <section className="flex flex-col  lg:flex-row items-center lg:items-start lg:justify-between gap-10 lg:gap-0 ">
-            <section className="flex flex-col items-start bg-white shadow-md p-4 rounded-sm gap-3 lg:w-2/6">
-              <div>
+            <section className="flex flex-col items-start gap-10">
+              <div className="bg-white dark:bg-zinc-700 p-4 rounded-sm gap-3 lg:w-auto shadow-md flex flex-col items-start">
                 <h4 className="font-bold">Tu carrito</h4>
+
+                <div className="flex flex-col gap-5 w-full">
+                  {cart.map((item) => (
+                    <CartItemCard key={item.id} item={item} isCheckout />
+                  ))}
+                </div>
               </div>
 
-              <div className="flex flex-col gap-5 w-full">
-                {cart.map((item) => (
-                  <CartItemCard key={item.id} item={item} isCheckout />
-                ))}
+              <div className="flex flex-col gap-2 p-3 bg-white dark:bg-zinc-700 rounded-sm shadow-md">
+                <h5 className="flex gap-2 font-bold">
+                  Total a pagar:
+                  <span className="font-medium">${totalAmount()}</span>
+                </h5>
               </div>
             </section>
 
-            <section className="bg-white p-6 rounded-sm shadow-md w-[300px] md:w-[400px] lg:w-[480px]">
+            <section className="bg-white dark:bg-zinc-700 p-6 rounded-sm shadow-md w-[300px] md:w-[400px] lg:w-[480px]">
               <h2 className="font-bold mb-4">Datos de envío</h2>
               <form
                 onSubmit={(e) => {
@@ -93,13 +100,13 @@ export const Checkout = () => {
                         type="text"
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
-                        className="border border-gray-300 rounded-md p-2"
+                        className="border border-gray-300 dark:bg-zinc-500 rounded-md p-2"
                         placeholder="Nombre y apellido"
                       />
                       {field.state.meta.errors.length > 0 && (
-                        <span className="text-red-500 text-sm">
+                        <em className="text-red-500 text-sm">
                           {field.state.meta.errors.join(", ")}
-                        </span>
+                        </em>
                       )}
                     </div>
                   )}
@@ -108,8 +115,12 @@ export const Checkout = () => {
                 <form.Field
                   name="email"
                   validators={{
-                    onChange: ({ value }) =>
-                      !value.includes("@") ? "Email inválido" : undefined,
+                    onChange: ({ value }) => {
+                      const emailReggex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                      return !emailReggex.test(value.trim())
+                        ? "Email inválido"
+                        : undefined;
+                    },
                   }}
                 >
                   {(field) => (
@@ -119,13 +130,13 @@ export const Checkout = () => {
                         type="email"
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
-                        className="border border-gray-300 rounded-md p-2"
+                        className="border border-gray-300 dark:bg-zinc-500 rounded-md p-2"
                         placeholder="Email@email.com"
                       />
                       {field.state.meta.errors.length > 0 && (
-                        <span className="text-red-500 text-sm">
+                        <em className="text-red-500 text-sm">
                           {field.state.meta.errors.join(", ")}
-                        </span>
+                        </em>
                       )}
                     </div>
                   )}
@@ -145,13 +156,13 @@ export const Checkout = () => {
                         type="text"
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
-                        className="border border-gray-300 rounded-md p-2"
+                        className="border border-gray-300 dark:bg-zinc-500 rounded-md p-2"
                         placeholder="Dirección 123"
                       />
                       {field.state.meta.errors.length > 0 && (
-                        <span className="text-red-500 text-sm">
+                        <em className="text-red-500 text-sm">
                           {field.state.meta.errors.join(", ")}
-                        </span>
+                        </em>
                       )}
                     </div>
                   )}
@@ -172,7 +183,7 @@ export const Checkout = () => {
                         name="province"
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
-                        className="border border-gray-300 rounded-md p-2"
+                        className="border border-gray-300 dark:bg-zinc-500 rounded-md p-2"
                       >
                         <option value="">-</option>
                         <option value="Buenos Aires">Buenos Aires</option>
@@ -228,14 +239,14 @@ export const Checkout = () => {
                         type="text"
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
-                        className="border border-gray-300 rounded-md p-2"
+                        className="border border-gray-300 dark:bg-zinc-500 rounded-md p-2"
                         placeholder="4 digitos"
                         maxLength={4}
                       />
                       {field.state.meta.errors.length > 0 && (
-                        <span className="text-red-500 text-sm">
+                        <em className="text-red-500 text-sm">
                           {field.state.meta.errors.join(", ")}
-                        </span>
+                        </em>
                       )}
                     </div>
                   )}
@@ -244,8 +255,11 @@ export const Checkout = () => {
                 <form.Field
                   name="cellphone"
                   validators={{
-                    onChange: ({ value }) =>
-                      value.trim() === "" ? "Teléfono requerido" : undefined,
+                    onChange: ({ value }) => {
+                      const phoneRegex = /^\d{10,13}$/;
+                      if (!phoneRegex.test(value.trim()))
+                        return "Teléfono inválido";
+                    },
                   }}
                 >
                   {(field) => (
@@ -255,12 +269,12 @@ export const Checkout = () => {
                         type="tel"
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
-                        className="border border-gray-300 rounded-md p-2"
+                        className="border border-gray-300 dark:bg-zinc-500 rounded-md p-2"
                       />
                       {field.state.meta.errors.length > 0 && (
-                        <span className="text-red-500 text-sm">
+                        <em className="text-red-500 text-sm">
                           {field.state.meta.errors.join(", ")}
-                        </span>
+                        </em>
                       )}
                     </div>
                   )}
@@ -268,7 +282,7 @@ export const Checkout = () => {
 
                 <button
                   type="submit"
-                  className="mt-4 bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition"
+                  className="mt-4 bg-black text-white  py-2 px-4 rounded-md hover:bg-gray-800 transition"
                 >
                   Comprar
                 </button>

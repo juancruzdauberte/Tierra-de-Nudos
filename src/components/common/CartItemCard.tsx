@@ -10,7 +10,7 @@ type Props = {
 export const CartItemCard = ({ item, isCheckout = false }: Props) => {
   const { deleteProductToCart, updateQuantity } = useCart();
   return (
-    <section className="flex items-center justify-between gap-2 md:gap-5 border border-black p-2 rounded-sm">
+    <section className="flex items-center justify-between gap-2 md:gap-5 border border-slate-300 dark:border-slate-500 p-2 rounded-sm w-[280px] sm:w-[320px] md:w-[380px] lg:w-[450px]">
       <div className="h-14 w-16 md:h-16 md:w-20">
         <img
           className="h-full w-full object-cover"
@@ -26,13 +26,17 @@ export const CartItemCard = ({ item, isCheckout = false }: Props) => {
 
       {isCheckout ? (
         <div className="flex items-center gap-5">
-          <div className="flex flex-col">
+          <div className="flex flex-col items-center">
             <span className="font-semibold">Cant</span>
             <span>{item.quantity}</span>
           </div>
-          <div className="flex flex-col ">
+          <div className="flex flex-col items-center">
             <span className="font-semibold">Precio</span>
-            <span>${item.price}</span>
+            <span>{item.price}</span>
+          </div>
+          <div className="flex flex-col items-center">
+            <span className="font-semibold">Subtotal</span>
+            <span>{item.price * item.quantity}</span>
           </div>
         </div>
       ) : (

@@ -18,7 +18,7 @@ import { Checkout } from "./components/pages/Checkout";
 function App() {
   return (
     <section
-      className="text-sm md:text-md lg:text-lg text-black dark:text-white bg-cust
+      className="text-xs md:text-md lg:text-lg text-black dark:text-white bg-cust
     omWhite dark:bg-customDark transition-colors duration-300"
     >
       <BrowserRouter>

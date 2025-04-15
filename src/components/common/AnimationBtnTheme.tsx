@@ -16,7 +16,6 @@ export const AnimationBtnTheme = ({ isOn, toggle }: Props) => {
           : " bg-gray-600 border border-gray-500"
       }`}
     >
-      {/* Icono visible según el modo */}
       <motion.div
         className="absolute w-6 h-6 flex items-center justify-center text-sm z-10"
         animate={{
@@ -35,7 +34,6 @@ export const AnimationBtnTheme = ({ isOn, toggle }: Props) => {
         )}
       </motion.div>
 
-      {/* Fondo móvil */}
       <motion.div
         className="w-6 h-6 rounded-full bg-white shadow-md"
         animate={{
