@@ -67,18 +67,18 @@ export const Navbar = () => {
         </Link>
 
         <section className="flex items-center gap-2.5 md:gap-4">
-          <ul className="hidden md:flex gap-5 items-center  ">
+          <ul className="hidden md:flex gap-5 items-center">
             <div className="relative group cursor-pointer">
               <Link to="/products">Productos</Link>
-              <div className="absolute top-full  right-0  p-4 bg-white dark:bg-zinc-900 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition duration-300 z-50">
-                <ul className="flex flex-col gap-3">
-                  <li className="hover:underline">
+              <div className="absolute top-full right-0 bg-white dark:bg-zinc-900 rounded-sm shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition duration-300 z-50">
+                <ul className="flex flex-col">
+                  <li className="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-800">
                     <Link to="/products">Todos</Link>
                   </li>
-                  <li className="hover:underline">
+                  <li className="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-800">
                     <Link to="/products/tapiz">Tapices</Link>
                   </li>
-                  <li className="hover:underline">
+                  <li className="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-800">
                     <Link to="/products/colgante">Colgantes</Link>
                   </li>
                 </ul>
@@ -91,27 +91,25 @@ export const Navbar = () => {
           <div className="relative group">
             <Link to="/account">
               <img
-                src={user?.user_metadata?.avatar_url}
-                alt="Avatar"
-                className="h-8 w-8 md:h-10 md:w-10 rounded-full cursor-pointer"
+                src={user?.picture}
+                alt={user?.full_name}
+                className="h-8 w-8 md:h-9 md:w-9 rounded-full cursor-pointer"
               />
             </Link>
 
-            <div className="absolute top-8 mt-2 right-0 w-48 p-4 bg-white dark:bg-zinc-900 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition duration-300 z-50">
-              <ul className="flex flex-col gap-3">
-                <li>
-                  <p className="">Hola, {user?.user_metadata?.full_name} !</p>
+            <div className="absolute top-full w-44 right-0 bg-white dark:bg-zinc-900 rounded-sm shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition duration-300 z-40">
+              <ul className="flex flex-col">
+                <li className="px-4 py-2">
+                  <p className="">Hola, {user?.full_name} !</p>
                 </li>
-                <li>
+                <li className="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer">
                   <Link to="/account">Mi Cuenta</Link>
                 </li>
-                <li>
-                  <button
-                    className="text-red-500  flex items-center gap-1"
-                    onClick={logOut}
-                  >
-                    <CiLogout size={24} /> Cerrar sesión
-                  </button>
+                <li
+                  className="px-4 py-2 flex items-center gap-1 hover:bg-red-200 cursor-pointer text-red-600"
+                  onClick={logOut}
+                >
+                  <CiLogout size={18} /> Cerrar sesión
                 </li>
               </ul>
             </div>

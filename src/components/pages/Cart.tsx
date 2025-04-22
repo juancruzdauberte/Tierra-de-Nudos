@@ -12,7 +12,7 @@ export const Cart = () => {
           <p>Tu carrito actualmente se encuentra vacio</p>
           <Link
             to="/products"
-            className="border rounded-full px-4 py-0.5 bg-customBrown text-white font-bold"
+            className="rounded-full px-4 py-0.5 bg-customBrown text-white font-bold"
           >
             Ver productos
           </Link>

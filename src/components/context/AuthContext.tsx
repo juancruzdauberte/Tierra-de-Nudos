@@ -13,6 +13,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [checkEmail, setCheckEmail] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -27,6 +28,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  async function signInWithMagicLink(email: string): Promise<void> {
+    try {
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+      });
+      if (error) throw new Error(error.message);
+      setCheckEmail(true);
+      navigate("/check-email");
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const logOut = async () => {
     try {
       const { error } = await supabase.auth.signOut();
@@ -38,13 +52,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-    });
-
     const { data: listener } = supabase.auth.onAuthStateChange(
       (_event, session) => {
-        setUser(session?.user ?? null);
+        if (session?.user) {
+          const { id, email, user_metadata } = session.user;
+          const { picture, full_name } = user_metadata;
+
+          const customUser: User = {
+            id,
+            email: email || "",
+            full_name,
+            picture,
+          };
+          setUser(customUser);
+        } else {
+          setUser(null);
+        }
+
         if (_event === "SIGNED_IN" && location.pathname === "/")
           navigate("/home");
       }
@@ -53,9 +77,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return () => {
       listener?.subscription.unsubscribe();
     };
-  }, [navigate]);
+  }, [navigate, location.pathname]);
 
-  const value = { logOut, signInWithGoogle, user };
+  const value = {
+    logOut,
+    signInWithGoogle,
+    user,
+    signInWithMagicLink,
+    checkEmail,
+  };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 

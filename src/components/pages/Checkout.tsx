@@ -22,7 +22,7 @@ export const Checkout = () => {
       zipcode: "",
     } as Buyer,
 
-    onSubmit: async ({ value }) => {
+    onSubmit: async ({ value, formApi }) => {
       const buyer: Buyer = {
         name: value.name,
         email: value.email,
@@ -36,7 +36,7 @@ export const Checkout = () => {
         items: cart,
         total: totalAmount(),
         buyer,
-        user_id: user?.id,
+        user_id: user?.id || "",
       };
 
       const orderCreated = await submitOrder({ order });
@@ -44,6 +44,7 @@ export const Checkout = () => {
         setSubmittedOrder(orderCreated);
         toast.success("Compra realizada con exito");
         cartEmpty();
+        formApi.reset();
       }
     },
   });
@@ -95,7 +96,10 @@ export const Checkout = () => {
                 >
                   {(field) => (
                     <div className="flex flex-col gap-1">
-                      <label className="font-medium">Nombre y Apellido</label>
+                      <label className="font-medium">
+                        Nombre y Apellido
+                        <span className="text-red-600">*</span>
+                      </label>
                       <input
                         type="text"
                         value={field.state.value}
@@ -125,7 +129,9 @@ export const Checkout = () => {
                 >
                   {(field) => (
                     <div className="flex flex-col gap-1">
-                      <label className="font-medium">Email</label>
+                      <label className="font-medium">
+                        Email <span className="text-red-600">*</span>
+                      </label>
                       <input
                         type="email"
                         value={field.state.value}
@@ -151,7 +157,9 @@ export const Checkout = () => {
                 >
                   {(field) => (
                     <div className="flex flex-col gap-1">
-                      <label className="font-medium">Dirección</label>
+                      <label className="font-medium">
+                        Dirección <span className="text-red-600">*</span>
+                      </label>
                       <input
                         type="text"
                         value={field.state.value}
@@ -177,7 +185,9 @@ export const Checkout = () => {
                 >
                   {(field) => (
                     <div className="flex flex-col gap-1">
-                      <label className="font-medium">Provincia</label>
+                      <label className="font-medium">
+                        Provincia <span className="text-red-600">*</span>
+                      </label>
                       <select
                         id="province"
                         name="province"
@@ -234,7 +244,9 @@ export const Checkout = () => {
                 >
                   {(field) => (
                     <div className="flex flex-col gap-1">
-                      <label className="font-medium">Código Postal</label>
+                      <label className="font-medium">
+                        Código Postal <span className="text-red-600">*</span>
+                      </label>
                       <input
                         type="text"
                         value={field.state.value}
@@ -264,7 +276,9 @@ export const Checkout = () => {
                 >
                   {(field) => (
                     <div className="flex flex-col gap-1">
-                      <label className="font-medium">Teléfono</label>
+                      <label className="font-medium">
+                        Teléfono <span className="text-red-600">*</span>
+                      </label>
                       <input
                         type="tel"
                         value={field.state.value}

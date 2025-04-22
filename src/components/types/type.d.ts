@@ -1,5 +1,3 @@
-import { UserMetadata } from "@supabase/supabase-js";
-
 export type Product = {
   id: string;
   title: string;
@@ -30,12 +28,24 @@ export type Orders = {
 
 export type Cart = Product[];
 
-type User = UserMetadata;
+export interface UserMetadata {
+  id: string;
+  avatar_url: string;
+  email: string;
+  email_verified: boolean;
+  full_name: string;
+  name: string;
+  picture: string;
+}
+
+export type User = Omit<UserMetadata, "avatar_url" | "name" | "email_verified">;
 
 export interface AuthContextType {
   user: User | null;
   signInWithGoogle: () => Promise<void>;
   logOut: () => Promise<void>;
+  signInWithMagicLink: (email: string) => Promise<void>;
+  checkEmail: boolean;
 }
 
 export interface CartContextType {
@@ -61,3 +71,10 @@ export type Filter = {
 };
 
 export type Category = "all" | "tapiz" | "colgante";
+
+export type Message = {
+  full_name: string;
+  email: string;
+  message: string;
+  userId: string;
+};

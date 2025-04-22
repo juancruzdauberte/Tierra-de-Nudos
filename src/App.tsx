@@ -14,6 +14,8 @@ import { CartProvider } from "./components/context/CartContext";
 import { Cart } from "./components/pages/Cart";
 import { Toaster } from "sonner";
 import { Checkout } from "./components/pages/Checkout";
+import { ProtectedCheckEmailRoute } from "./components/config/ProtectedCheckEmailRoute";
+import { CheckEmail } from "./components/pages/CheckEmail";
 
 function App() {
   return (
@@ -29,6 +31,14 @@ function App() {
               <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="*" element={<NotFound />} />
+                <Route
+                  path="/check-email"
+                  element={
+                    <ProtectedCheckEmailRoute>
+                      <CheckEmail />
+                    </ProtectedCheckEmailRoute>
+                  }
+                />
                 <Route element={<ProtectedRoutes />}>
                   <Route element={<ProtectedLayout />}>
                     <Route path="/products" element={<Products />} />

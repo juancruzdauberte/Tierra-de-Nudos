@@ -1,5 +1,9 @@
 import { supabase } from "./components/config/db";
-import { type Orders, type Product } from "./components/types/type";
+import {
+  type Message,
+  type Orders,
+  type Product,
+} from "./components/types/type";
 
 export async function getProducts(): Promise<Product[]> {
   try {
@@ -55,6 +59,31 @@ export async function submitOrder({
       throw new Error("Error al guardar la compra");
     }
     return data ? data[0] : null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+export async function submitMessage({
+  full_name,
+  email,
+  message,
+  userId,
+}: {
+  full_name: string;
+  email: string;
+  message: string;
+  userId: string;
+}): Promise<Message | null> {
+  try {
+    const { data, error } = await supabase
+      .from("messages")
+      .insert({ full_name, email, message, userId })
+      .select();
+
+    if (error) throw new Error(error.message);
+    return data[0] as Message;
   } catch (error) {
     console.error(error);
     return null;
